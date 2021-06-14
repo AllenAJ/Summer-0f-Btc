@@ -6,9 +6,7 @@ const fs = require("fs");
 
 const maxBlockWeight = 4000000; // Max Block Weight
 const myBlock = []; // Final block array
-var currBlockWeight = 0; // Current Block Weight
-var totalFee = 0; // Current Block Weight
-var totalTrans = 0; // Current Block Weight
+
 let i = 0;
 
 class Transaction {
@@ -18,7 +16,7 @@ class Transaction {
     this.fee = fee;
     this.weight = weight;
     this.faw = faw;
-    this.parents = parents;
+    this.parents = parents.split(";");
   }
 }
 
@@ -43,14 +41,23 @@ class Transaction {
     return b.faw - a.faw;
   });
 
+  //console.log(Trans);
+
+  var currBlockWeight = 0; // Current Block Weight
+  var totalFee = 0; // Current Block Weight
+  var totalTrans = 0; // Current Block Weight
+  var allParentsDone = 1;
+
   // Logic to check
   i = 0;
-  while (currBlockWeight < maxBlockWeight && i < Trans.length) {
+
+  while (currBlockWeight < maxBlockWeight && i < Trans.length - 1) {
     if (currBlockWeight + parseInt(Trans[i].weight) > maxBlockWeight) {
       i++;
       continue;
     }
-    if (!Trans[i].parents) {
+    //console.log(Trans[i].parents.length);
+    if (Trans[i].parents.length == 1) {
       myBlock.push(Trans[i].tx_id);
       currBlockWeight += parseInt(Trans[i].weight);
       totalFee += parseInt(Trans[i].fee);
