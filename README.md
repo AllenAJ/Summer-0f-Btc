@@ -1,8 +1,8 @@
 # Results:
 
-- num of transactions in final block: 2733
-- Total fee in block : 4980141 
-- Total weight : 3999604
+- num of transactions in final block: 3227
+- Total fee in block : 5809342 
+- Total weight : 3999788
 
 
 # Approach
